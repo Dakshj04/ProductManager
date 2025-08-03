@@ -1,1 +1,1 @@
-We start with an Express web server. Next, we add configuration for MySQL database, create Tutorial model, write the controller. Then we define routes for handling all CRUD operations
+We start with an Express web server. Next, we add configuration for MySQL database, create Products model, write the controller. Then we define routes for handling all CRUD operations
