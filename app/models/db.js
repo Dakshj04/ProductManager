@@ -1,11 +1,13 @@
-const mysql = require("mysql");
-const dbConfig = require("../config/db.config.js");
+// db.js
+import { createPool } from "mysql";
+import 'dotenv/config'; 
 
-var connection = mysql.createPool({
-  host: dbConfig.HOST,
-  user: dbConfig.USER,
-  password: dbConfig.PASSWORD,
-  database: dbConfig.DB
+const pool = createPool({
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DB
 });
 
-module.exports = connection;
+export const query = pool.query.bind(pool); 
+export default pool; 

@@ -2,21 +2,28 @@
   "name": "nodejs-express-mysql",
   "version": "1.0.0",
   "description": "Node.js Restful CRUD API with Node.js, Express and MySQL",
-  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node sever.js",
+    "server": "nodemon server.js"
   },
   "keywords": [
-    "nodejs",
+    "nod  ejs",
     "express",
     "mysql",
     "restapi"
   ],
-  "author": "bezkoder",
+  "type": "module",
+  "author": "daksh",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

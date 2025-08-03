@@ -1,29 +1,26 @@
-const express = require("express");
-// const bodyParser = require("body-parser"); /* deprecated */
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import tutorialRoutes from "./app/routes/product.routes.js";
 
 const app = express();
 
-var corsOptions = {
+const corsOptions = {
   origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// parse requests of content-type - application/json
-app.use(express.json()); /* bodyParser.json() is deprecated */
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
-
-// simple route
+// ✅ Root route (so "Cannot GET /" doesn't appear)
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.send("API is running. Try /api/tutorials");
 });
 
-require("./app/routes/tutorial.routes.js")(app);
+// ✅ Register tutorial routes
+tutorialRoutes(app);
 
-// set port, listen for requests
+// ✅ Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
