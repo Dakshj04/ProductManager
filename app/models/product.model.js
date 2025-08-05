@@ -2,7 +2,7 @@ import { query as _query } from "./db.js";
 
 
 _query(
-  `CREATE TABLE IF NOT EXISTS tutorials (
+  `CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,

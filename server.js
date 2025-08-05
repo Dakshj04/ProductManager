@@ -1,6 +1,13 @@
+import 'dotenv/config';
 import express from "express";
 import cors from "cors";
-import tutorialRoutes from "./app/routes/product.routes.js";
+import productRoutes from "./app/routes/product.routes.js";
+
+
+console.log('Environment variables:');
+console.log('HOST:', process.env.HOST);
+console.log('USER:', process.env.USER);
+console.log('DB:', process.env.DB);
 
 const app = express();
 
@@ -14,11 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // ✅ Root route (so "Cannot GET /" doesn't appear)
 app.get("/", (req, res) => {
-  res.send("API is running. Try /api/tutorials");
+  res.send("API is running. Try /api/products");
 });
 
 // ✅ Register tutorial routes
-tutorialRoutes(app);
+productRoutes(app);
 
 // ✅ Start the server
 const PORT = process.env.PORT || 8080;

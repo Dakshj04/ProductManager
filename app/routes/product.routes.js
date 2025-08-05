@@ -1,7 +1,7 @@
 import express from 'express';
 import * as products from '../controllers/product.controller.js';
 
-export default function (app) {
+export default function (app){
   const router = express.Router();
 
   router.post("/", products.create);
