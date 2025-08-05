@@ -1,7 +1,9 @@
 import 'dotenv/config'
 
-export const HOST = process.env.HOST;
-export const USER = "root";
-export const PASSWORD = process.env.PASSWORD;
-export const DB = process.env.DB;
-export const JWT=process.env.JWT;
+export const DB_CONFIG={ 
+ HOST :process.env.HOST,
+ USER : process.env.USER,
+  PASSWORD : process.env.PASSWORD,
+  DB : process.env.DB,
+  JWT : process.env.JWT,
+}

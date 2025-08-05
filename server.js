@@ -1,34 +1,22 @@
-import 'dotenv/config';
+// server.js
 import express from "express";
 import cors from "cors";
 import productRoutes from "./app/routes/product.routes.js";
 
-
-console.log('Environment variables:');
-console.log('HOST:', process.env.HOST);
-console.log('USER:', process.env.USER);
-console.log('DB:', process.env.DB);
-
 const app = express();
-
-const corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// ✅ Root route (so "Cannot GET /" doesn't appear)
+// Root
 app.get("/", (req, res) => {
-  res.send("API is running. Try /api/products");
+  res.json({ message: "Welcome to the Product API." });
 });
 
-// ✅ Register tutorial routes
-productRoutes(app);
+// Product routes
+app.use("/api/products", productRoutes);
 
-// ✅ Start the server
+// Server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server running on port ${PORT}.`);
 });

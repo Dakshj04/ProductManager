@@ -1,16 +1,19 @@
-import express from 'express';
-import * as products from '../controllers/product.controller.js';
+// app/routes/product.routes.js
+import express from "express";
+import {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct
+} from "../controllers/product.controller.js";
 
-export default function (app){
-  const router = express.Router();
+const router = express.Router();
 
-  router.post("/", products.create);
-  router.get("/", products.findAll);
-  router.get("/published", products.findAllPublished);
-  router.get("/:id", products.findOne);
-  router.put("/:id", products.update);
-  router.delete("/:id", products.deleteOne); // Renamed to avoid confusion with deleteAll
-  router.delete("/", products.deleteAll);
+router.get("/", getAllProducts);
+router.get("/:id", getProductById);
+router.post("/", createProduct);
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct);
 
-  app.use('/api/products', router);
-}
+export default router;
