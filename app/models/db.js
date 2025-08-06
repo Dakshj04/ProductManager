@@ -6,8 +6,11 @@ const pool = createPool({
   host: DB_CONFIG.HOST ,
   user: DB_CONFIG.USER ,
   password: DB_CONFIG.PASSWORD,
-  database: DB_CONFIG.DB 
+  database: DB_CONFIG.DB ,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-export const query = pool.query.bind(pool); 
+
 export default pool; 

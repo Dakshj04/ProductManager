@@ -10,48 +10,45 @@ export const Product = function(product) {
 };
 
 // Get all products
-Product.getAll = (result) => {
-  db.query("SELECT * FROM products", (err, res) => {
-    if (err) return result(err, null);
-    result(null, res);
-  });
+export const getAllProducts = async () => {
+  const [rows] = await db.query("SELECT * FROM products");
+  return rows;
 };
 
 // Get by ID
-Product.getById = (id, result) => {
-  db.query("SELECT * FROM products WHERE id = ?", [id], (err, res) => {
-    if (err) return result(err, null);
-    if (res.length) return result(null, res[0]);
-    result({ kind: "not_found" }, null);
-  });
+export const getById = async (id) => {
+  const [rows] = await db.query("SELECT * FROM products WHERE id = ?", [id]);
+  if (rows.length === 0) {
+    throw { kind: "not_found" };
+  }
+  return rows[0];
 };
 
 // Create
-Product.create = (newProduct, result) => {
-  db.query("INSERT INTO products SET ?", newProduct, (err, res) => {
-    if (err) return result(err, null);
-    result(null, { id: res.insertId, ...newProduct });
-  });
+export const create = async (newProduct) => {
+  const [result] = await db.query("INSERT INTO products SET ?", newProduct);
+  return { id: result.insertId, ...newProduct };
 };
 
 // Update
-Product.update = (id, product, result) => {
-  db.query(
+export const update = async (id, product) => {
+  const [result] = await db.query(
     "UPDATE products SET title = ?, description = ?, price = ?, published = ? WHERE id = ?",
-    [product.title, product.description, product.price, product.published, id],
-    (err, res) => {
-      if (err) return result(err, null);
-      if (res.affectedRows == 0) return result({ kind: "not_found" }, null);
-      result(null, { id, ...product });
-    }
+    [product.title, product.description, product.price, product.published, id]
   );
+  
+  if (result.affectedRows === 0) {
+    throw { kind: "not_found" };
+  }
+  return { id, ...product };
 };
 
 // Delete
-Product.remove = (id, result) => {
-  db.query("DELETE FROM products WHERE id = ?", [id], (err, res) => {
-    if (err) return result(err, null);
-    if (res.affectedRows == 0) return result({ kind: "not_found" }, null);
-    result(null, res);
-  });
+export const remove = async (id) => {
+  const [result] = await db.query("DELETE FROM products WHERE id = ?", [id]);
+  
+  if (result.affectedRows === 0) {
+    throw { kind: "not_found" };
+  }
+  return result;
 };
